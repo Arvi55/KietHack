@@ -76,7 +76,7 @@ onMounted(async () => {
   }
 
   try {
-    const res = await axios.get(`http://localhost:8080/chat/history/${userId}`)
+    const res = await axios.get(`http://localhost:8080/chat/history/${userId}/${aiRole.value}`)
     messages.value = res.data || []
     scrollToBottom()
   } catch (error) {
@@ -105,6 +105,7 @@ const sendMessage = async () => {
   try {
     const res = await axios.post('http://localhost:8080/chat/send', {
       userId: parseInt(userId),
+      persona: aiRole.value,
       message: userText,
     })
 
@@ -209,9 +210,7 @@ const goHome = () => {
   scrollbar-width: thin;
 }
 
-.messages-area::-webkit-scrollbar {
-  width: 6px;
-}
+.messages-area::-webkit-scrollbar { width: 6px; }
 .messages-area::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: rgb(215 180 174 / 0.55);
@@ -224,11 +223,7 @@ const goHome = () => {
   color: rgb(69 61 55 / 0.5);
 }
 
-.message-group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.message-group { display: flex; flex-direction: column; gap: 1rem; }
 
 .message {
   max-width: 85%;

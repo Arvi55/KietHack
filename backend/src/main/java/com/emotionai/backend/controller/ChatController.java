@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/chat")
+@CrossOrigin(origins = "*") // Allow Vue application connections
 public class ChatController {
 
     private final ChatService chatService;
@@ -29,8 +29,8 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/history/{userId}")
-    public ResponseEntity<List<ChatMessage>> getHistory(@PathVariable Long userId) {
-        return ResponseEntity.ok(chatService.getChatHistory(userId));
+    @GetMapping("/history/{userId}/{persona}")
+    public ResponseEntity<List<ChatMessage>> getHistory(@PathVariable Long userId, @PathVariable String persona) {
+        return ResponseEntity.ok(chatService.getChatHistory(userId, persona));
     }
 }
