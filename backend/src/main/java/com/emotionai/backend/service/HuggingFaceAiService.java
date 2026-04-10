@@ -25,7 +25,7 @@ public class HuggingFaceAiService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("HTTP-Referer", "http://localhost:3000");
+        headers.set("HTTP-Referer", "https://kiethack-5.onrender.com");
         headers.set("X-Title", "EmotionAI");
 
         Map<String, Object> body = new HashMap<>();
