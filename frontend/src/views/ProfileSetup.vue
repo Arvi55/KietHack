@@ -1,8 +1,10 @@
 <template>
-  <div class="app-container">
+  <div
+    class="app-container min-h-screen w-full bg-gradient-to-br from-cream via-sand to-[#E5D9CF] text-forest"
+  >
     <div class="glass-panel profile-card">
       <div class="text-center mb-6">
-        <h2 class="title">Tell Us About Yourself</h2>
+        <h2 class="title font-serif">Tell Us About Yourself</h2>
         <p class="subtitle">Step {{ currentStep }} of {{ totalSteps }}</p>
         
         <div class="progress-bar-container mt-4">
@@ -145,8 +147,11 @@ const submitProfile = async () => {
 
 .title {
   font-size: 2rem;
-  color: var(--text-primary);
   margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #453d37, #b8695e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .text-center { text-align: center; }
 .mb-6 { margin-bottom: 1.5rem; }
@@ -157,14 +162,14 @@ const submitProfile = async () => {
 .progress-bar-container {
   width: 100%;
   height: 6px;
-  background: var(--surface-border);
   border-radius: 4px;
   overflow: hidden;
+  background: rgb(237 227 217 / 0.85);
 }
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, #b8695e, #d7b4ae);
   transition: width 0.3s ease;
 }
 
@@ -179,29 +184,30 @@ const submitProfile = async () => {
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--surface-border);
-  padding: 0.875rem 1.5rem;
+  cursor: pointer;
   border-radius: 12px;
+  border: 1px solid rgb(69 61 55 / 0.18);
+  background: rgb(255 250 245 / 0.6);
+  padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
+  color: #453d37;
   transition: background 0.2s;
 }
 
 .btn-secondary:hover {
-  background: var(--surface-border);
+  background: rgb(255 255 255 / 0.95);
+  border-color: rgb(184 105 94 / 0.35);
 }
 
 .select-field option {
-  background: var(--bg-gradient-end);
-  color: white;
+  background: #fffaf5;
+  color: #453d37;
 }
 
 .error-text {
-  color: var(--error);
   text-align: center;
+  color: #c24133;
 }
 
 @keyframes fadeUp {
