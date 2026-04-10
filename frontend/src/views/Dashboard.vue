@@ -1,9 +1,11 @@
 <template>
-  <div class="app-container dashboard-wrapper">
-    <div class="glass-panel profile-summary">
-      <div class="text-center mb-6">
-        <h2 class="title">Welcome, {{ userName }}!</h2>
-        <div class="personality-badge" v-if="personalityType">
+  <div
+    class="app-container dashboard-wrapper min-h-screen w-full bg-gradient-to-br from-cream via-sand to-[#E5D9CF] text-forest"
+  >
+    <div class="profile-summary">
+      <div class="mb-6 text-center">
+        <h2 class="title font-serif">Welcome, {{ userName }}!</h2>
+        <div v-if="personalityType" class="personality-badge">
           {{ personalityType }}
         </div>
         <p class="subtitle mt-4">We've customized your experience based on your preferences.</p>
@@ -22,24 +24,26 @@
       </div>
 
       <div class="role-selection mt-8 text-center">
-        <h3 class="mb-4">Select your AI Buddy Persona</h3>
+        <h3 class="mb-4 text-lg font-semibold text-forest">Select your Emotion Buddy persona</h3>
         <p class="subtitle mb-6 text-sm">Who do you want to talk to today?</p>
-        
+
         <div class="roles-grid">
-          <button 
-            v-for="role in roles" 
+          <button
+            v-for="role in roles"
             :key="role"
-            @click="selectRole(role)"
+            type="button"
             :class="['btn-role', { 'btn-role-active': selectedRole === role }]"
+            @click="selectRole(role)"
           >
             {{ role }}
           </button>
         </div>
 
-        <button 
-          @click="startChat" 
-          class="btn-primary mt-8" 
+        <button
+          type="button"
+          class="btn-primary mt-8"
           :disabled="!selectedRole || isLoading"
+          @click="startChat"
         >
           {{ isLoading ? 'Entering...' : 'Start Chatting' }}
         </button>
@@ -77,7 +81,7 @@ onMounted(async () => {
     if (profileRes.data && profileRes.data.aiBuddyRole) {
       selectedRole.value = profileRes.data.aiBuddyRole
     }
-    
+
     const quizRes = await axios.get(`http://localhost:8080/quiz/${userId}`)
     if (quizRes.data && quizRes.data.personalityType) {
       personalityType.value = quizRes.data.personalityType
@@ -93,18 +97,18 @@ const selectRole = (role) => {
 
 const startChat = async () => {
   if (!selectedRole.value) return
-  
+
   try {
     isLoading.value = true
     errorMessage.value = ''
-    
+
     const userId = localStorage.getItem('userId')
-    
+
     await axios.post('http://localhost:8080/profile/set-role', {
       userId: parseInt(userId),
-      role: selectedRole.value
+      role: selectedRole.value,
     })
-    
+
     localStorage.setItem('aiBuddyRole', selectedRole.value)
     router.push('/chat')
   } catch (error) {
@@ -118,53 +122,102 @@ const startChat = async () => {
 <style scoped>
 .dashboard-wrapper {
   align-items: flex-start;
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
 
 .profile-summary {
   width: 100%;
   max-width: 700px;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(69 61 55 / 0.1);
+  background: rgb(255 255 255 / 0.92);
+  padding: 2rem;
+  box-shadow:
+    0 10px 40px rgb(69 61 55 / 0.08),
+    0 2px 12px rgb(69 61 55 / 0.04);
+  backdrop-filter: blur(10px);
   animation: fadeUp 0.6s ease-out forwards;
 }
 
-.title { font-size: 2.2rem; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.text-center { text-align: center; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mt-4 { margin-top: 1rem; }
-.mt-6 { margin-top: 1.5rem; }
-.mt-8 { margin-top: 2rem; }
-.subtitle { color: var(--text-secondary); }
-.text-sm { font-size: 0.9rem; }
+@media (min-width: 640px) {
+  .profile-summary {
+    padding: 2.5rem;
+  }
+}
+
+.title {
+  font-size: 2.2rem;
+  background: linear-gradient(to right, #453d37, #b8695e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-center {
+  text-align: center;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mt-6 {
+  margin-top: 1.5rem;
+}
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.subtitle {
+  color: rgb(69 61 55 / 0.58);
+}
+
+.text-sm {
+  font-size: 0.9rem;
+}
 
 .personality-badge {
   display: inline-block;
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
-  border: 1px solid rgba(99, 102, 241, 0.5);
-  padding: 0.5rem 1.5rem;
-  border-radius: 99px;
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: 2px;
   margin-top: 1rem;
+  border-radius: 999px;
+  border: 1px solid rgb(184 105 94 / 0.35);
+  background: rgb(215 180 174 / 0.2);
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #8f5349;
 }
 
 .data-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  background: rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
   border-radius: 16px;
+  border: 1px solid rgb(69 61 55 / 0.08);
+  background: rgb(255 250 245 / 0.65);
+  padding: 1.5rem;
 }
 
 @media (min-width: 600px) {
-  .data-grid { grid-template-columns: 1fr 1fr; }
+  .data-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-.data-item { color: white; font-size: 0.95rem; }
-.data-item strong { color: var(--text-secondary); }
+.data-item {
+  font-size: 0.95rem;
+  color: #453d37;
+}
+
+.data-item strong {
+  font-weight: 600;
+  color: rgb(69 61 55 / 0.5);
+}
 
 .roles-grid {
   display: grid;
@@ -173,36 +226,49 @@ const startChat = async () => {
 }
 
 @media (min-width: 600px) {
-  .roles-grid { grid-template-columns: repeat(3, 1fr); }
+  .roles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .btn-role {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--surface-border);
-  border-radius: 12px;
-  color: white;
-  padding: 1rem;
-  font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
+  border-radius: 12px;
+  border: 1px solid rgb(69 61 55 / 0.12);
+  background: rgb(255 250 245 / 0.75);
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #453d37;
   transition: all 0.2s ease;
 }
 
 .btn-role:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(255 255 255 / 0.95);
   transform: translateY(-2px);
+  border-color: rgb(184 105 94 / 0.25);
 }
 
 .btn-role-active {
-  background: rgba(99, 102, 241, 0.2);
-  border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+  border-color: #b8695e;
+  background: rgb(184 105 94 / 0.12);
+  box-shadow: 0 0 0 1px rgb(184 105 94 / 0.2);
 }
 
-.error-text { color: var(--error); margin-top: 1rem; }
+.error-text {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #c24133;
+}
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
