@@ -78,7 +78,7 @@ onMounted(async () => {
   }
   
   try {
-    const res = await axios.get(`http://localhost:8080/chat/history/${userId}`)
+    const res = await axios.get(`http://localhost:8080/chat/history/${userId}/${aiRole.value}`)
     messages.value = res.data || []
     scrollToBottom()
   } catch (error) {
@@ -107,6 +107,7 @@ const sendMessage = async () => {
   try {
     const res = await axios.post('http://localhost:8080/chat/send', {
       userId: parseInt(userId),
+      persona: aiRole.value,
       message: userText
     })
     
@@ -206,9 +207,7 @@ const goHome = () => {
   scrollbar-color: var(--primary) transparent;
 }
 
-.messages-area::-webkit-scrollbar {
-  width: 6px;
-}
+.messages-area::-webkit-scrollbar { width: 6px; }
 .messages-area::-webkit-scrollbar-thumb {
   background-color: var(--primary);
   border-radius: 10px;
@@ -221,11 +220,7 @@ const goHome = () => {
   text-align: center;
 }
 
-.message-group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.message-group { display: flex; flex-direction: column; gap: 1rem; }
 
 .message {
   padding: 1.25rem;
@@ -296,14 +291,8 @@ const goHome = () => {
   flex-shrink: 0;
 }
 
-.btn-send:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
-
-.btn-send:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.btn-send:hover:not(:disabled) { transform: translateY(-2px); }
+.btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
 @keyframes bounce {
   0%, 80%, 100% { transform: scale(0); }

@@ -14,6 +14,8 @@ public class ChatMessage {
     private Long id;
 
     private Long userId;
+    
+    private String persona;
 
     @Column(columnDefinition = "TEXT")
     private String message;

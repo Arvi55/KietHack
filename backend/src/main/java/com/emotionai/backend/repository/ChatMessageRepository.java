@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
-    List<ChatMessage> findByUserIdOrderByTimestampAsc(Long userId);
+    List<ChatMessage> findByUserIdAndPersonaOrderByTimestampAsc(Long userId, String persona);
 }

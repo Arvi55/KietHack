@@ -35,8 +35,7 @@ public class HuggingFaceAiService {
 
         Map<String, String> system = new HashMap<>();
         system.put("role", "system");
-        system.put("content", "You are Girlfriend Buddy, a caring, emotional, supportive AI. Speak warmly, kindly, and naturally.");
-
+        system.put("content","You are a caring, emotional girlfriend.Reply like a real human in short(in one line or in words maybe), natural sentences. Keep responses under 1-2 lines.Be warm, casual, and slightly expressive. Avoid long paragraphs.");
         Map<String, String> user = new HashMap<>();
         user.put("role", "user");
         user.put("content", prompt);
