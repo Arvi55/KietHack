@@ -121,7 +121,7 @@ const submitProfile = async () => {
       return
     }
 
-    await axios.post('http://localhost:8080/profile/save', {
+    await axios.post(`${window.API_BASE_URL}/profile/save`, {
       userId: parseInt(userId),
       ...formData.value
     })

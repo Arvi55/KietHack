@@ -162,7 +162,7 @@ const submitQuiz = async () => {
       feelingScore: scores.value.F,
     }
 
-    await axios.post('http://localhost:8080/quiz/submit', payload)
+    await axios.post(`${window.API_BASE_URL}/quiz/submit`, payload)
 
     setTimeout(() => {
       router.push('/dashboard')

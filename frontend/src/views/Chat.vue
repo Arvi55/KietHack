@@ -76,7 +76,7 @@ onMounted(async () => {
   }
 
   try {
-    const res = await axios.get(`http://localhost:8080/chat/history/${userId}/${aiRole.value}`)
+    const res = await axios.get(`${window.API_BASE_URL}/chat/history/${userId}/${aiRole.value}`)
     messages.value = res.data || []
     scrollToBottom()
   } catch (error) {
@@ -103,7 +103,7 @@ const sendMessage = async () => {
   scrollToBottom()
 
   try {
-    const res = await axios.post('http://localhost:8080/chat/send', {
+    const res = await axios.post(`${window.API_BASE_URL}/chat/send`, {
       userId: parseInt(userId),
       persona: aiRole.value,
       message: userText,

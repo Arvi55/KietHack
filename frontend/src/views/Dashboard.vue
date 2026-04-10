@@ -76,13 +76,13 @@ onMounted(async () => {
   }
 
   try {
-    const profileRes = await axios.get(`http://localhost:8080/profile/${userId}`)
+    const profileRes = await axios.get(`${window.API_BASE_URL}/profile/${userId}`)
     profileData.value = profileRes.data || {}
     if (profileRes.data && profileRes.data.aiBuddyRole) {
       selectedRole.value = profileRes.data.aiBuddyRole
     }
 
-    const quizRes = await axios.get(`http://localhost:8080/quiz/${userId}`)
+    const quizRes = await axios.get(`${window.API_BASE_URL}/quiz/${userId}`)
     if (quizRes.data && quizRes.data.personalityType) {
       personalityType.value = quizRes.data.personalityType
     }
@@ -104,7 +104,7 @@ const startChat = async () => {
 
     const userId = localStorage.getItem('userId')
 
-    await axios.post('http://localhost:8080/profile/set-role', {
+    await axios.post(`${window.API_BASE_URL}/profile/set-role`, {
       userId: parseInt(userId),
       role: selectedRole.value,
     })

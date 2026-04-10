@@ -88,7 +88,7 @@ const handleSignup = async () => {
     isLoading.value = true
     errorMessage.value = ''
 
-    const response = await axios.post('http://localhost:8080/auth/signup', {
+    const response = await axios.post(`${window.API_BASE_URL}/auth/signup`, {
       name: name.value,
       email: email.value,
       password: password.value,
