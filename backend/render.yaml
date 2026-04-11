@@ -9,7 +9,7 @@ services:
       - key: PORT
         value: 8080
       - key: HUGGINGFACE_API_KEY
-        value: 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
+        value: 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
       - key: DB_DRIVER
         value: org.postgresql.Driver
       - key: DB_DIALECT
