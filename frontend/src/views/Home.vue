@@ -17,51 +17,7 @@
       />
     </div>
 
-    <header
-      class="fixed inset-x-0 top-0 z-20 transition-all duration-300"
-      :class="
-        navScrolled
-          ? 'border-b border-forest/10 bg-cream/92 shadow-md shadow-forest/10 backdrop-blur-xl'
-          : 'border-b border-transparent bg-transparent'
-      "
-    >
-      <nav
-        class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
-        aria-label="Primary"
-      >
-        <router-link
-          to="/"
-          class="font-serif text-xl tracking-tight transition-opacity hover:opacity-90 sm:text-2xl"
-          :class="navScrolled ? 'text-forest' : 'text-sage drop-shadow-md'"
-        >
-          Emotion Buddy
-        </router-link>
-        <div class="flex items-center gap-2 sm:gap-3">
-          <router-link
-            to="/login"
-            class="rounded-full px-4 py-2 text-sm font-medium shadow-sm transition-colors sm:px-5 sm:text-base"
-            :class="
-              navScrolled
-                ? 'border border-forest/20 bg-white/70 text-forest hover:border-lime/40 hover:bg-sand/80'
-                : 'border border-cream/55 bg-black/25 text-cream backdrop-blur-md hover:bg-black/35 hover:border-cream/80'
-            "
-          >
-            Login
-          </router-link>
-          <router-link
-            to="/signup"
-            class="rounded-full px-4 py-2 text-sm font-medium shadow-md transition hover:brightness-95 sm:px-5 sm:text-base"
-            :class="
-              navScrolled
-                ? 'border border-lime/30 bg-lime text-cream hover:brightness-95'
-                : 'border border-lime/40 bg-lime text-cream backdrop-blur-sm'
-            "
-          >
-            Sign up
-          </router-link>
-        </div>
-      </nav>
-    </header>
+
 
     <section
       class="relative z-10 flex min-h-screen min-h-[100dvh] flex-col justify-center pt-24 pb-16 sm:pt-28 lg:pb-24"
@@ -148,22 +104,16 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ArrowRight, LineChart, TrendingUp, Lightbulb, Sparkles } from 'lucide-vue-next'
 
-const navScrolled = ref(false)
 const heroReady = ref(false)
 const moodBars = [45, 62, 55, 70, 68, 82, 78]
 
-function onScroll() {
-  navScrolled.value = window.scrollY > 16
-}
-
 onMounted(() => {
-  window.addEventListener('scroll', onScroll, { passive: true })
   requestAnimationFrame(() => {
     heroReady.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', onScroll)
+  // Cleanup if needed
 })
 </script>

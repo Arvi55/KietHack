@@ -15,9 +15,21 @@ const router = createRouter({
     { path: '/signup', name: 'signup', component: Signup },
     { path: '/profile-setup', name: 'profileSetup', component: ProfileSetup },
     { path: '/quiz', name: 'quiz', component: Quiz },
-    { path: '/dashboard', name: 'dashboard', component: Dashboard },
-    { path: '/chat', name: 'chat', component: Chat }
+    { path: '/dashboard', name: 'dashboard', component: Dashboard, meta: { requiresAuth: true } },
+    { path: '/chat', name: 'chat', component: Chat, meta: { requiresAuth: true } }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const userId = localStorage.getItem('userId')
+  const isAuthenticated = userId && userId !== 'null' && userId !== 'undefined'
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    alert(`To access ${to.name || 'this page'}, please log in first.`)
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router
